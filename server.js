@@ -75,7 +75,6 @@ function isAuthenticated(req) {
       // If user is already authenticated, redirect to dashboard or home page
       return res.redirect('/poll'); // Change '/dashboard' to your desired page
     }
-    
     // If user is not authenticated, serve the login page
     res.sendFile(path.join(__dirname, 'login.html'));
   });

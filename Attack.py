@@ -34,11 +34,12 @@ def login_and_respond_poll(email: str, password: str):
 
     response = requests.post(login_url, data=data, headers=headers)
     header = response.request.headers["Cookie"]
-
     data = {"poll": "yes"}
     response = requests.post(poll_url, data=data, headers={"cookie": header})
     print(response.text)
 
+
+flag = True
 
 def attack():
     # Generate a random name (not used in this example but shown as per original code)
@@ -59,7 +60,7 @@ def attack():
 
     try:
         i = 0
-        while i < 20:
+        while i < 20 and flag:
             response1 = requests.get(url1)
             # response1.raise_for_status()
             data = response1.json() if response1.status_code == 200 else {}
@@ -124,4 +125,3 @@ for thread in threads:
 # Wait for all threads to finish
 for thread in threads:
     thread.join()
-# asyncio.run(login_and_respond_poll("", ""))

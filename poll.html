@@ -6,102 +6,148 @@
     <title>Poll</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
-        /* Global Styles */
-        * {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
+      /* Global Reset */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #6D83F2, #93A5FD, #DBB7FF);
+        color: #333;
+      }
+
+      /* Centering the container */
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px;
+      }
+
+      /* Poll Box */
+      .poll-box {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+        padding: 40px;
+        max-width: 500px;
+        text-align: center;
+      }
+
+      /* Email Display */
+      #user-email {
+        font-weight: bold;
+        color: #6D83F2;
+      }
+
+      /* Poll Form Styles */
+      form p {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      form input[type="radio"] {
+        margin-right: 10px;
+      }
+
+      form label {
+        font-size: 18px;
+        margin-right: 20px;
+      }
+
+      form button {
+        background: linear-gradient(135deg, #6D83F2, #93A5FD);
+        border: none;
+        padding: 12px 25px;
+        font-size: 18px;
+        color: #fff;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      form button:hover {
+        background: linear-gradient(135deg, #5364d8, #8497fb);
+      }
+
+      /* Vertical Progress Bars */
+      .progress-bar-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .progress-bar {
+        width: 40%;
+        height: 200px;
+        font-size: 100px;
+        background-color: #f3f3f3;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .progress-yes, .progress-no {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        color: #fff;
+        text-align: center;
+        font-size: 16px;
+        transition: height 0.5s ease-in-out;
+      }
+
+      .progress-yes {
+        background-color: #4CAF50;
+      }
+
+      .progress-no {
+        background-color: #f44336;
+      }
+
+      .progress-label {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 16px;
+        color: #333;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .poll-box {
+          width: 90%;
         }
-      
-        body {
-          font-family: Arial, sans-serif;
+
+        form p {
+          font-size: 20px;
+        }
+
+        form label {
           font-size: 16px;
-          line-height: 1.5;
-          color: #333;
-          background-color: #f9f9f9;
         }
-      
-        /* Container Styles */
-        .container {
-          max-width: 400px;
-          margin: 40px auto;
-          padding: 20px;
-          background-color: #fff;
-          border: 1px solid #ddd;
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-      
-        /* Poll Form Styles */
-        #poll-form {
-          margin-bottom: 20px;
-        }
-      
-        #poll-form input[type="radio"] {
-          margin-right: 10px;
-        }
-      
-        #poll-form label {
-          margin-right: 20px;
-        }
-      
-        #poll-form button[type="submit"] {
-          background-color: #4CAF50;
-          color: #fff;
-          border: none;
-          padding: 10px 20px;
+
+        form button {
           font-size: 16px;
-          cursor: pointer;
         }
-      
-        #poll-form button[type="submit"]:hover {
-          background-color: #3e8e41;
-        }
-      
-        /* Progress Bar Styles */
-        .progress-bar {
-          width: 100%;
-          height: 30px;
-          background-color: #f3f3f3;
-          border-radius: 25px;
-          overflow: hidden;
-          display: flex;
-          margin-top: 20px;
-        }
-      
-        .progress-yes, .progress-no {
-          height: 30px;
-          line-height: 30px;
-          color: #fff;
-          text-align: center;
-          transition: width 0.5s;
-          font-size: 14px;
-        }
-      
-        .progress-yes {
-          background-color: #4CAF50;
-        }
-      
-        .progress-no {
-          background-color: #f44336;
-        }
-      
-        /* Additional Styles */
-        h3 {
-          margin-top: 0;
-        }
-      
-        p {
-          margin-bottom: 10px;
-        }
-      </style>
+      }
+  </style>
 </head>
 <body>
-    <div class="container">
+  <div class="container">
+    <div class="poll-box">
         <p>Your email: <span id="user-email"></span></p>
+        <br>
+        <br>
+        <p>Should We get full marks?</p>
 
         <form id="poll-form">
-            <p>Should We get full marks?</p>
             <input type="radio" id="yes" name="poll" value="yes" required>
             <label for="yes">Yes</label><br>
             <input type="radio" id="no" name="poll" value="no" required>
@@ -109,14 +155,24 @@
             <button type="submit">Submit</button>
         </form>
 
-        <!-- Poll Results and Progress Bar -->
+        <!-- Poll Results and Vertical Progress Bars -->
         <h3>Poll Results:</h3>
-        <div class="progress-bar">
-            <div id="progress-yes" class="progress-yes">Yes: 0</div>
-            <div id="progress-no" class="progress-no">No: 0</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar">
+            <div id="progress-yes" class="progress-yes" style=" font-size: 40px; height: 50%;">50%</div>
+          </div>
+          <div class="progress-bar">
+            <div id="progress-no" class="progress-no" style=" font-size: 40px; height: 50%;">50%</div>
+          </div>
+        </div>
+        <div class="progress-label">
+          <span>Yes</span> &nbsp;&nbsp;&nbsp; <span>No</span>
         </div>
     </div>
-    <a href="/auth/logout">Log Out</a>
+</div>
+
+<a href="/auth/logout" style="display: block; text-align: center; margin-top: 20px; color: #fff;">Log Out</a>
+
 
     <script>
         // Fetch user data and update email
@@ -135,35 +191,33 @@
         }
 
         // Submit poll vote
- document.getElementById('poll-form').addEventListener('submit', async function (e) {
-    e.preventDefault();
+        document.getElementById('poll-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-    const formData = new FormData(this);
-    const pollValue = formData.get('poll');
+            const formData = new FormData(this);
+            const pollValue = formData.get('poll');
 
-    try {
-        const response = await fetch('/poll', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ poll: pollValue })  // Ensure the field name matches with your backend logic
+            try {
+                const response = await fetch('/poll', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ poll: pollValue })
+                });
+
+                if (response.ok) {
+                    console.log('Vote submitted successfully');
+                    updateProgressBar();
+                } else {
+                    console.error('Error submitting vote:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error submitting vote:', error);
+            }
         });
 
-        if (response.ok) {
-            console.log('Vote submitted successfully');
-            updateProgressBar(); 
-            // location.reload() // Update the progress bar after the vote
-        } else {
-            console.error('Error submitting vote:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error submitting vote:', error);
-    }
-});
-
-
-        // Update progress bar with poll results
+        // Update progress bars with poll results
         async function updateProgressBar() {
             try {
                 const response = await fetch('/results');
@@ -172,19 +226,19 @@
                 const yesPercentage = (data.yes / totalVotes) * 100;
                 const noPercentage = (data.no / totalVotes) * 100;
 
-                document.getElementById('progress-yes').style.width = `${yesPercentage}%`;
-                document.getElementById('progress-yes').textContent = `Yes: ${data.yes}`;
-                document.getElementById('progress-no').style.width = `${noPercentage}%`;
-                document.getElementById('progress-no').textContent = `No: ${data.no}`;
+                document.getElementById('progress-yes').style.height = `${yesPercentage}%`;
+                document.getElementById('progress-yes').textContent = `${Math.round(yesPercentage)}%`;
+                document.getElementById('progress-no').style.height = `${noPercentage}%`;
+                document.getElementById('progress-no').textContent = `${Math.round(noPercentage)}%`;
             } catch (error) {
                 console.error('Error fetching poll results:', error);
             }
         }
- 
+
         // Initial load
         fetchUserData();
         updateProgressBar();
-        setInterval(updateProgressBar, 5000);  // Update progress every 5 seconds
+        setInterval(updateProgressBar, 1000);  // Update progress every 5 seconds
     </script>
 </body>
 </html>
